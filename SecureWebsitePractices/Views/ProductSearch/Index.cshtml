@@ -1,0 +1,59 @@
+﻿@model SecureWebsitePractices.Models.ProductModel
+@{
+    ViewBag.Title = "ProductSearch";
+}
+
+<h2>Product Search</h2>
+<hr />
+
+@using (Html.BeginForm("SearchValue", "ProductSearch", FormMethod.Post))
+{
+    @*<table cellpadding="0" cellspacing="0">*@
+
+    <h3>Search for Products by ID or Name</h3>
+    <br />
+    <div>
+        <h4>Product Id: </h4>
+
+        <input type="text" name="id" value="@Model.ProductKey" />
+        <br /><br />
+        <p>or</p>
+
+        <h4> Product Name: </h4>
+        <input type="text" name="name" value="@Model.ProductName" /><br /><br />
+    </div>
+    <div><input type="submit" value="Submit" /></div>
+
+}
+<hr /><hr />
+<h2>Product Search Results</h2>
+<hr />
+
+@if (Model.SearchedByName == true)
+{
+    <h3>@Model.ProductList.Count() Results found with the name @Model.ProductName</h3>
+}
+else
+{
+    <h3>@Model.ProductList.Count() Results found</h3>
+}
+
+<table>
+    <tr>
+        <th>Product Id</th>
+        <th>Product Code</th>
+        <th>Product Name</th>
+        <th>Stock Level</th>
+    </tr>
+
+    @foreach (var items in Model.ProductList)
+    {
+        <tr>
+            <td>@items.ProductKey</td>
+            <td>@items.ProductAlternateKey</td>
+            <td>@items.ProductName</td>
+            <td>@items.StockLevel</td>
+
+        </tr>
+    }
+</table>
